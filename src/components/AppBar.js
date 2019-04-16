@@ -72,7 +72,7 @@ const styles = theme => ({
 
 function SearchAppBar(props) {
   console.log(props)
-  const { classes,handel,getVaue } = props;
+  const { classes, handel, getVaue } = props;
   return (
     <div className={classes.root}>
       <AppBar position="static">

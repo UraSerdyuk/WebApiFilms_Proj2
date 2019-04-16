@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
-import Button from '@material-ui/core/Button';
 import AppBar from './components/AppBar'
 import TemporaryDrawer from './components/TemporaryDrawer'
 
 class App extends Component {
+  state={
+    handelsMenu: false,
+  
+  }
   handel = () =>{
-    console.log('asdsad')
+    this.setState({ handelsMenu: true })
   }
   getVaue = (e) => {
     console.log(e.currentTarget.value);
@@ -15,8 +18,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <AppBar handel={this.handel} getVaue={this.getVaue}/>
-      <TemporaryDrawer/>
+      <AppBar  handel={this.handel} getVaue={this.getVaue}/>
+      <TemporaryDrawer handelsMenu={this.state.handelsMenu} />
       </div>
     );
   }
