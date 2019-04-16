@@ -19,35 +19,20 @@ const styles = {
   },
 };
 
-class TemporaryDrawer extends React.PureComponent {
+class TemporaryDrawer extends React.Component {
 
-state = {
-      left: false,
-    };
-
-  
-
-
-
-  toggleDrawer = (side, open) => () => {
-    this.setState({
-      [side]: open,
-    });
-  };
-
-
-
+// передача пропсов в App
+toggleDrawer = () => () => {
+  this.props.getToogleDrawer(false);
+}
 
   render() {
-    const { classes, handelsMenu } = this.props;
+    const { classes } = this.props;
 
-    console.log(handelsMenu);
-    console.log(this.state.left);
- 
     const sideList = (
       <div className={classes.list}>
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {['Inbox','test', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
@@ -66,17 +51,15 @@ state = {
       </div>
     );
 
-
-
     return (
       <div>
-        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+        <Drawer open={this.props.handelsMenu} onClose={this.toggleDrawer()} >
           <div
             name = 'div'
             tabIndex={0}
             role="button"
-            onClick={this.toggleDrawer('left', false)}
-            onKeyDown={this.toggleDrawer('left', false)}
+            // onClick={this.toggleDrawer('left', false)}
+            // onKeyDown={this.toggleDrawer('left', false)}
           >
             {sideList}
           </div>

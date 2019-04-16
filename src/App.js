@@ -14,12 +14,15 @@ class App extends Component {
   getVaue = (e) => {
     console.log(e.currentTarget.value);
   }
+  getToogle = e => {
+    this.setState({handelsMenu:e});
+  }
 
   render() {
     return (
       <div className="App">
       <AppBar  handel={this.handel} getVaue={this.getVaue}/>
-      <TemporaryDrawer handelsMenu={this.state.handelsMenu} />
+      <TemporaryDrawer handelsMenu={this.state.handelsMenu}  getToogleDrawer={this.getToogle} />
       </div>
     );
   }
