@@ -1,12 +1,10 @@
-const initialState = '';
+const initialState = "";
 
-
-export function inputReducer(state = initialState,action) {
-  switch(action.type) {
-    case  "SET_INPUT_VALUE":
+export function inputReducer(state = initialState, action) {
+  switch (action.type) {
+    case "SET_INPUT_VALUE":
       return action.payload;
-      default :
+    default:
       return state;
   }
-  
 }
