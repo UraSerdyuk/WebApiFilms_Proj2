@@ -1,15 +1,23 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import "./styles/App.css";
 import AppBar from "./components/AppBar";
 import TemporaryDrawer from "./components/TemporaryDrawer";
-import { connect } from "react-redux";
-//action
 import { setFilms } from "./redux/actions/FilmsAction";
 import { setInputValue } from "./redux/actions/InputAction";
+
 class App extends Component {
-  handel = () => {};
+  state = {
+    handelsMenu: false
+  };
+  handel = () => {
+    this.setState({ handelsMenu: true });
+  };
   getVaue = e => {
     this.props.setInputValueAction(e.currentTarget.value);
+  };
+  getToogle = e => {
+    this.setState({ handelsMenu: e });
   };
 
   componentDidMount() {
@@ -23,7 +31,11 @@ class App extends Component {
     return (
       <div className="App">
         <AppBar handel={this.handel} getVaue={this.getVaue} />
-        <TemporaryDrawer />
+
+        <TemporaryDrawer
+          handelsMenu={this.state.handelsMenu}
+          getToogleDrawer={this.getToogle}
+        />
       </div>
     );
   }
