@@ -6,6 +6,6 @@ import { favoriteFilmsReducer } from "./favoriteFilms";
 
 export const rootReducer = combineReducers({
   films: filmReducer,
-  favoriteFilms: favoriteFilmsReducer,
+  favoritFilms: favoriteFilmsReducer,
   inputValue: inputReducer
 });

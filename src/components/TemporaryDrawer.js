@@ -9,6 +9,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import { NavLink } from "react-router-dom";
 
 const styles = {
   list: {
@@ -19,37 +20,52 @@ const styles = {
   }
 };
 
+const style = { active: { color: "black" } };
 class TemporaryDrawer extends React.Component {
   // передача пропсов в App
   toggleDrawer = () => () => {
     this.props.getToogleDrawer(false);
   };
-
+  toggleShowFavorite = () => {
+    this.props.getFavoriteFilms();
+  };
   render() {
+    //  console.log(this.props);
     const { classes } = this.props;
 
     const sideList = (
       <div className={classes.list}>
         <List>
-          {["Inbox", "test", "Starred", "Send email", "Drafts"].map(
-            (text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            )
-          )}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
+          {["Стандартний пошук"].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText
+                primary={
+                  <NavLink to="/" activeStyle={style.active}>
+                    {text}
+                  </NavLink>
+                }
+              />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <Divider />
+        <List>
+          {["Favorit"].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <NavLink to="/favorite" activeStyle={style.active}>
+                    {text}
+                  </NavLink>
+                }
+              />
             </ListItem>
           ))}
         </List>
