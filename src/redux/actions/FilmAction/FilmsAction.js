@@ -1,6 +1,6 @@
 import { GET_FILMS_SUCCESS } from "../../constants/constants";
 import { GET_FILSM_REQUEST } from "../../constants/constants";
-// import { NOT_FOUND } from '../../constants/constants'
+import { NOT_FOUND } from '../../constants/constants'
 import { ERROR } from "../../constants/constants";
 
 export function fetchFilms(string) {
@@ -17,7 +17,7 @@ export function fetchFilms(string) {
         // console.log(data);
         if (data.length === 0) {
           return dispatch({
-            type: "NOT_FOUND",
+            type: NOT_FOUND,
             fetchStatus: 3
           });
         }

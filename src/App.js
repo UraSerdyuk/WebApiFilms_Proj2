@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 import "./styles/App.css";
+import status from './redux/status/status'
 
 //components
 import AppBar from "./components/AppBar";
@@ -40,8 +41,9 @@ class App extends Component {
     if (!localStorage.getItem("inputValue")) {
       localStorage.setItem("inputValue", "");
     }
+
     if (!localStorage.getItem("dataFavorite")) {
-      localStorage.setItem("dataFavorite", []);
+      localStorage.setItem("dataFavorite",JSON.stringify([]));
     }
 
     //запись в стор значение инпута
@@ -87,7 +89,7 @@ class App extends Component {
     } = this.props;
 
     // не найдено
-    if (fetchStatus === 3) {
+    if ( fetchStatus === status.NOT_FOUND ) {
       return (
         <div className="App">
           <AppBar
@@ -107,7 +109,7 @@ class App extends Component {
       );
     }
 
-    if (fetchStatus === 0 || fetchStatus === 2) {
+    if (fetchStatus === status.IDLE || fetchStatus === status.SUCCESS) {
       return (
         <div className="App">
           <AppBar
@@ -126,7 +128,7 @@ class App extends Component {
             <Route
               exact
               path="/"
-              component={() => <GuttersGrid list={films} />}
+              component={ GuttersGrid } 
             />
             <Route
               path="/favorite"
@@ -139,33 +141,13 @@ class App extends Component {
     }
 
     //прелоадер
-    if (fetchStatus === 1 && true) {
+    if ( fetchStatus === status.REQUEST || true ) {
       return (
         <div className="App">
           <Load />
         </div>
       );
     }
-
-    // if (fetchStatusFavorite === 5) {
-    //   return (
-    //     <div className="App">
-    //       <AppBar
-    //         handel={this.handel}
-    //         getVaue={this.getVaue}
-    //         setInputValue={inputValue}
-    //         StartSearch={this.StartSearch}
-    //       />
-    //       <TemporaryDrawer
-    //         handelsMenu={this.state.handelsMenu}
-    //         getToogleDrawer={this.getToogle}
-    //         getFavoriteFilms={this.showFavoriteFilms}
-    //       />
-
-    //       <Favorite list={faviriteFilms} />
-    //     </div>
-    //   );
-    // }
   }
 }
 

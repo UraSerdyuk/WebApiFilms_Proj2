@@ -3,39 +3,23 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import RecipeReviewCard from "./Card";
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    padding: 40
-  },
-  paper: {
-    width: 250,
-    display: "block"
-  },
-  control: {
-    padding: theme.spacing.unit * 2
-  }
-});
+import { connect } from "react-redux";
+import "../styles/style.css";
 
 class Favorite extends React.Component {
-  state = {
-    spacing: "40"
-  };
-
   render() {
-    const { classes, list } = this.props;
-    const { spacing } = this.state;
+    const { classes, favorite } = this.props;
 
     return (
-      <Grid container className={classes.root} spacing={16}>
+      <Grid container className="gridRoot" spacing={16}>
         <Grid item xs={12}>
           <Grid
             container
             className={classes.demo}
             justify="space-around"
-            spacing={Number(spacing)}
+            spacing={40}
           >
-            {list.map((element, index) => {
+            {favorite.map((element, index) => {
               return <RecipeReviewCard key={index} element={element} />;
             })}
           </Grid>
@@ -49,4 +33,10 @@ Favorite.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Favorite);
+const mapStateToProps = store => {
+  return {
+    favorite: store.favoritFilms.favoritFilms
+  };
+};
+
+export default connect(mapStateToProps)(withStyles()(Favorite));

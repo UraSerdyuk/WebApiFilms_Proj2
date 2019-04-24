@@ -4,5 +4,4 @@ export default {
   SUCCESS: 2,
   NOT_FOUND: 3,
   ERROR: -1,
-  FAVORITE: 4
 };
