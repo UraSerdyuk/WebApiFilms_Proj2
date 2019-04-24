@@ -1,4 +1,6 @@
 .gridRoot {
+  max-width: 1300px;
+    margin: auto !important;
   flex-grow: 1;
   padding: 40px;
 

@@ -109,7 +109,7 @@ class App extends Component {
       );
     }
 
-    if (fetchStatus === status.IDLE || fetchStatus === status.SUCCESS) {
+    if ( fetchStatus === status.IDLE || fetchStatus === status.SUCCESS ) {
       return (
         <div className="App">
           <AppBar
@@ -132,7 +132,7 @@ class App extends Component {
             />
             <Route
               path="/favorite"
-              component={() => <Favorite list={faviriteFilms} />}
+              component={() => <Favorite list={ faviriteFilms } />}
             />
             <Redirect to="/" />
           </Switch>
