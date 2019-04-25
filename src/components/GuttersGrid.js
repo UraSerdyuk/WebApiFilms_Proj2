@@ -20,7 +20,13 @@ class GuttersGrid extends React.Component {
             spacing={40}
           >
             {films.map((element, index) => {
-              return <RecipeReviewCard key={index} element={element} />;
+              return (
+                <RecipeReviewCard
+                  key={index}
+                  element={element}
+                  remuve="remuve"
+                />
+              );
             })}
           </Grid>
         </Grid>

@@ -1,7 +1,28 @@
 .gridRoot {
   max-width: 1300px;
-    margin: auto !important;
+  margin: auto !important;
   flex-grow: 1;
   padding: 40px;
+}
 
+.none {
+  display: none !important;
+}
+.card {
+max-width: 320px;
+min-width: 320px;
+margin-bottom: 3%;
+}
+.media {
+  height: 0;
+  padding-top: 56.25%;
+}
+.actions {
+  display: flex;
+}
+.avatar {
+  background-color: red !important;
+}
+.expandOpen {
+  transform: rotate(180deg);
 }
