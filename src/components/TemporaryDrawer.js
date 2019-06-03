@@ -10,7 +10,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import { NavLink } from "react-router-dom";
-
+import '../styles/style.css'
 const styles = {
   list: {
     width: 250
@@ -24,11 +24,11 @@ const style = { active: { color: "black" } };
 class TemporaryDrawer extends React.Component {
   // передача пропсов в App
   toggleDrawer = () => () => {
-    this.props.getToogleDrawer(false);
+    this.props.getToogleDrawer(false)
   };
-  toggleShowFavorite = () => {
-    this.props.getFavoriteFilms();
-  };
+  // toggleShowFavorite = () => {
+  //   this.props.getFavoriteFilms();
+  // };
   render() {
     //  console.log(this.props);
     const { classes } = this.props;
@@ -43,7 +43,7 @@ class TemporaryDrawer extends React.Component {
               </ListItemIcon>
               <ListItemText
                 primary={
-                  <NavLink to="/" activeStyle={style.active}>
+                  <NavLink className='subMenuText'  to="/" activeStyle={style.active}>
                     {text}
                   </NavLink>
                 }
@@ -61,7 +61,7 @@ class TemporaryDrawer extends React.Component {
               </ListItemIcon>
               <ListItemText
                 primary={
-                  <NavLink to="/favorite" activeStyle={style.active}>
+                  <NavLink className='subMenuText' to="/favorite" activeStyle={style.active}>
                     {text}
                   </NavLink>
                 }

@@ -26,3 +26,7 @@ margin-bottom: 3%;
 .expandOpen {
   transform: rotate(180deg);
 }
+.subMenuText  {
+  display: block;
+  width: 100%;
+}
