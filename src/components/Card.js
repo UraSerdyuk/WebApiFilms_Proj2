@@ -17,31 +17,18 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
+import { connect } from "react-redux";
+import { updateFavoriteFilms } from "../redux/actions/favoriteFilm/FavoriteFilmsAction";
+import "../styles/style.css";
+import DeleteIcon from "@material-ui/icons/Delete";
+
 const styles = theme => ({
-  card: {
-    maxWidth: 400,
-    minWidth: 400,
-    marginBottom: 30
-  },
-  media: {
-    height: 0,
-    paddingTop: "56.25%" // 16:9
-  },
-  actions: {
-    display: "flex"
-  },
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest
     })
-  },
-  expandOpen: {
-    transform: "rotate(180deg)"
-  },
-  avatar: {
-    backgroundColor: red[500]
   }
 });
 
@@ -52,16 +39,53 @@ class RecipeReviewCard extends React.Component {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
+  hendelClickAddToFavorite = e => {
+    let id = +e.currentTarget.parentNode.parentNode.id;
+    let dataFavoriteArr = JSON.parse(localStorage.getItem("dataFavorite"));
+    let validate = dataFavoriteArr.some(element => {
+      return element.show.id === id;
+    });
+
+    if (!validate) {
+      console.log("added");
+      let arr = this.props.films;
+      let element = arr.find(element => {
+        return element.show.id === id;
+      });
+      dataFavoriteArr.push(element);
+      localStorage.setItem("dataFavorite", JSON.stringify(dataFavoriteArr));
+      //обновление стора
+      this.props.updateFavoriteFilmsAction(
+        JSON.parse(localStorage.getItem("dataFavorite"))
+      );
+    }
+  };
+  remuveFromFavorite = e => {
+    let id = +e.currentTarget.parentNode.parentNode.id;
+    console.log(id);
+
+    //удалить из локал стореджа
+    let dataFavoriteArr = JSON.parse(localStorage.getItem("dataFavorite"));
+    let newArr = dataFavoriteArr.filter(element => {
+      return element.show.id !== id;
+    });
+    localStorage.setItem("dataFavorite", JSON.stringify(newArr));
+
+    //обновление стора
+    this.props.updateFavoriteFilmsAction(
+      JSON.parse(localStorage.getItem("dataFavorite"))
+    );
+  };
+
   render() {
-    const { classes, element } = this.props;
+    const { classes, element, none, remuve } = this.props;
     const text = "`" + element.show.summary + "`";
-    //console.log(text);
-    // console.log(element);
+
     return (
-      <Card className={classes.card}>
+      <Card id={element.show.id} className="card">
         <CardHeader
           avatar={
-            <Avatar aria-label="Recipe" className={classes.avatar}>
+            <Avatar aria-label="Recipe" className="avatar">
               R
             </Avatar>
           }
@@ -74,7 +98,7 @@ class RecipeReviewCard extends React.Component {
           subheader={element.show.premiered}
         />
         <CardMedia
-          className={classes.media}
+          className="media"
           image={
             element.show.image
               ? element.show.image.medium
@@ -88,16 +112,29 @@ class RecipeReviewCard extends React.Component {
           </a>
         </CardContent>
 
-        <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
+        <CardActions className="actions" disableActionSpacing>
+          <IconButton
+            className={none ? "none" : ""}
+            aria-label="Add to favorites"
+            onClick={this.hendelClickAddToFavorite}
+          >
             <FavoriteIcon />
           </IconButton>
+
+          <IconButton
+            className={remuve ? "none" : ""}
+            aria-label="Удилить"
+            onClick={this.remuveFromFavorite}
+          >
+            <DeleteIcon />
+          </IconButton>
+
           <IconButton aria-label="Share">
             <ShareIcon />
           </IconButton>
           <IconButton
             className={classnames(classes.expand, {
-              [classes.expandOpen]: this.state.expanded
+              ["expandOpen"]: this.state.expanded
             })}
             onClick={this.handleExpandClick}
             aria-expanded={this.state.expanded}
@@ -106,12 +143,11 @@ class RecipeReviewCard extends React.Component {
             <ExpandMoreIcon />
           </IconButton>
         </CardActions>
+
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>DESCRIBING:</Typography>
-            <Typography paragraph>
-              {text}
-            </Typography>
+            <Typography paragraph>{text}</Typography>
           </CardContent>
         </Collapse>
       </Card>
@@ -123,4 +159,20 @@ RecipeReviewCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(RecipeReviewCard);
+const mapStateToProps = store => {
+  return {
+    films: store.films.films,
+    favoritFilms: store.favoritFilms.favoritFilms
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateFavoriteFilmsAction: arr => dispatch(updateFavoriteFilms(arr))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(RecipeReviewCard));

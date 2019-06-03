@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import RecipeReviewCard from "./Card";
 import { connect } from "react-redux";
 import "../styles/style.css";
+import { updateFavoriteFilms } from "../redux/actions/favoriteFilm/FavoriteFilmsAction";
 
 class Favorite extends React.Component {
   render() {
@@ -20,7 +21,9 @@ class Favorite extends React.Component {
             spacing={40}
           >
             {favorite.map((element, index) => {
-              return <RecipeReviewCard key={index} element={element} />;
+              return (
+                <RecipeReviewCard key={index} element={element} none={"none"} />
+              );
             })}
           </Grid>
         </Grid>
@@ -39,4 +42,13 @@ const mapStateToProps = store => {
   };
 };
 
-export default connect(mapStateToProps)(withStyles()(Favorite));
+const mapDispatchToProps = dispatch => {
+  return {
+    updateFavoriteFilmsAction: arr => dispatch(updateFavoriteFilms(arr))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles()(Favorite));

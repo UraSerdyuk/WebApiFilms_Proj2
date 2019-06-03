@@ -39,7 +39,7 @@ class App extends Component {
   componentDidMount() {
     //если нету ключа , добавляем
     if (!localStorage.getItem("inputValue")) {
-      localStorage.setItem("inputValue", "");
+      localStorage.setItem("inputValue", "рик");
     }
 
     if (!localStorage.getItem("dataFavorite")) {
@@ -132,7 +132,7 @@ class App extends Component {
             />
             <Route
               path="/favorite"
-              component={() => <Favorite list={ faviriteFilms } />}
+              component={ Favorite }
             />
             <Redirect to="/" />
           </Switch>
